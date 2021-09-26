@@ -30,45 +30,71 @@ def get_filters():
     cities = list(CITY_DATA.keys());
 
     print('Hello! Let\'s explore some US bikeshare data!')
-    
     print('What city do you want to look at first? ')
+
     blocker = 1;
+
     while blocker == 1:
+
         city = input("City Name:").lower();
+
         if city != cities[0] and city != cities[1] and city != cities[2]:
+
             print("Hey, I didn't write a search engine so you are going to need to be more specific.")
+        
         else:
+
           break
-    
     month_options = ['january', 'february', 'march', 'april', 'may', 'june', 'july',
           'august', 'september', 'october', 'november', 'december', 'all'];
+    
     valid_months = ['january', 'february', 'march', 'april', 'may', 'june','all']
-    while blocker ==1:
+    
+    while blocker == 1:
+    
         month = input('What month do you want to look at in ' + city + '? ').lower();
+        
         correct_name = 0;
+        
         if month in month_options:
+            
             if month in valid_months:
-                correct_name =1;
+                
+                correct_name = 1;
+                
                 break;
+            
             else:
                  correct_name = 2;
+        
         if correct_name == 0:
-           print("Hey, I didn't write a search engine so you are going to need to be more specific.");
+           
+            print("Hey, I didn't write a search engine so you are going to need to be more specific.");
+        
         elif correct_name == 2:
+
            print("Unfortunately, we only have data for th first 6 months. Choose again!");
-    
+
     day_options = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday',
           'all'];
-    while blocker ==1:
+    
+    while blocker == 1:
+    
         day = input('What day do you want to look at in ' + city + ' within the month of ' + month + '? ').lower();
         correct_name = 0;
+        
         if day in day_options:
-                correct_name =1;
-                break;
+        
+            correct_name =1;
+            
+            break;
+        
         if correct_name == 0:
-           print("Hey, I didn't write a search engine so you are going to need to be more specific.");
+        
+            print("Hey, I didn't write a search engine so you are going to need to be more specific.");
         
     print('-'*40)
+    
     return city, month, day
 
 
@@ -140,8 +166,9 @@ def time_stats(df):
     MONTH = list(MONTH_DATA.keys());       
     month_ticker = 0;
     most_month = MONTH_DATAinv.get(start_month[0]);
+    months_in_year = range(12);
 
-    for i in range(12):
+    for i in months_in_year:
         count = 0;
         
         for current_month in start_month: 
@@ -158,9 +185,10 @@ def time_stats(df):
     
     DAY = list(DAY_DATA.keys());
     day_ticker = 0;
-    most_day = datetime.datetime(start_year[0],start_month[0],start_day[0]).strftime('%A')
-    
-    for i in range(7):
+    most_day = datetime.datetime(start_year[0],start_month[0],start_day[0]).strftime('%A');
+    days_in_week = range(7);
+
+    for i in days_in_week:
         count = 0;
         index = 0;
         
@@ -183,8 +211,9 @@ def time_stats(df):
     HOUR = range(len(start_hour)); 
     hour_ticker = 0;
     most_hour = start_hour[0]
+    hours_in_day = range(24)
     
-    for i in range(24):
+    for i in hours_in_day:
         count = 0;     
         
         for current_hour in start_hour:                                 
@@ -195,7 +224,7 @@ def time_stats(df):
             hour_ticker = count;
             most_hour = HOUR[i];
             
-    print('The most common hour is: ' + str(most_hour) + ':00 Military Time')
+    print('The most common hour is: {}:00 Military Time'.format(most_hour))
 
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
@@ -242,15 +271,16 @@ def trip_duration_stats(df):
     """Displays statistics on the total and average trip duration."""
 
     print('\nCalculating Trip Duration...\n')
-    start_time = time.time()
-    trip_dur = df['Trip Duration']
+    start_time = time.time();
+    trip_dur = df['Trip Duration'];
     total_trip=0;
-    
-    print('The total number of minutes spent biking in this city is: '+str((trip_dur.sum()/60)))
-        
+    total_bike_minutes = str(trip_dur.sum()/60);
+    average_bike_minutes = str(trip_dur.mean()/60);
 
+    print('The total number of minutes spent biking in this city is: '+ total_bike_minutes)        
 
-    print('The average number of minutes spent biking in this city per trip is: '+str(trip_dur.mean()/60))
+    print('The average number of minutes spent biking in this city per trip is: ' + average_bike_minutes)
+
 
 
     print("\nThis took %s seconds." % (time.time() - start_time))
@@ -261,7 +291,7 @@ def user_stats(df):
     """Displays statistics on bikeshare users."""
 
     print('\nCalculating User Stats...\n')
-    start_time = time.time()
+    start_time = time.time();
 
     print('The number of ' + str(df['User Type'].value_counts().index[0]) + 's is ' + str(df['User Type'].value_counts()[0]))
     print('The number of ' + str(df['User Type'].value_counts().index[1]) + 's is ' + str(df['User Type'].value_counts()[1]))
@@ -277,9 +307,14 @@ def user_stats(df):
             
     
     if 'Birth Year' in df.columns:
-        print('The earliest birth year is: '+ str(int(df['Birth Year'].min())))
-        print('The most recent birth year is: ' + str(int(df['Birth Year'].max())))
-        print('The most common birth year is: ' + str(int(df['Birth Year'].value_counts().index[0])))
+        
+        earliest_birth = str(int(df['Birth Year'].min()));
+        recent_birth = str(int(df['Birth Year'].max()));
+        common_birth = str(int(df['Birth Year'].value_counts().index[0]));
+
+        print('The earliest birth year is: ' + earliest_birth)
+        print('The most recent birth year is: ' + recent_birth)
+        print('The most common birth year is: ' + common_birth)
 
             
     print("\nThis took %s seconds." % (time.time() - start_time))
@@ -295,8 +330,8 @@ def display_raw_data(df):
         if raw == 'no':
             break
         elif raw == 'yes':
-            print(df.head(i)) # TO DO: appropriately subset/slice your dataframe to display next five rows
-            raw = input("Would you like to see more of the data?") # TO DO: convert the user input to lower case using lower() function
+            print(df.head(i)) 
+            raw = input("Would you like to see more of the data?") 
             i += 5
         else:
             raw = input("\nYour input is invalid. Please enter only 'yes' or 'no'\n").lower()
