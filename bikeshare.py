@@ -30,45 +30,77 @@ def get_filters():
     cities = list(CITY_DATA.keys());
 
     print('Hello! Let\'s explore some US bikeshare data!')
+
     # TO DO: get user input for city (chicago, new york city, washington). HINT: Use a while loop to handle invalid inputs
     print('What city do you want to look at first? ')
+
     blocker = 1;
+
     while blocker == 1:
+
         city = input("City Name:").lower();
+
         if city != cities[0] and city != cities[1] and city != cities[2]:
+
             print("Hey, I didn't write a search engine so you are going to need to be more specific.")
+        
         else:
+
           break
+
     # TO DO: get user input for month (all, january, february, ... , june)
+    
     month_options = ['january', 'february', 'march', 'april', 'may', 'june', 'july',
           'august', 'september', 'october', 'november', 'december', 'all'];
+    
     valid_months = ['january', 'february', 'march', 'april', 'may', 'june','all']
-    while blocker ==1:
+    
+    while blocker == 1:
+    
         month = input('What month do you want to look at in ' + city + '? ').lower();
+        
         correct_name = 0;
+        
         if month in month_options:
+            
             if month in valid_months:
-                correct_name =1;
+                
+                correct_name = 1;
+                
                 break;
+            
             else:
                  correct_name = 2;
+        
         if correct_name == 0:
-           print("Hey, I didn't write a search engine so you are going to need to be more specific.");
+           
+            print("Hey, I didn't write a search engine so you are going to need to be more specific.");
+        
         elif correct_name == 2:
-           print("Unfortunately, we only have data for th first 6 months. Choose again!");
+        
+            print("Unfortunately, we only have data for th first 6 months. Choose again!");
+    
     # TO DO: get user input for day of week (all, monday, tuesday, ... sunday)
     day_options = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday',
           'all'];
-    while blocker ==1:
+    
+    while blocker == 1:
+    
         day = input('What day do you want to look at in ' + city + ' within the month of ' + month + '? ').lower();
         correct_name = 0;
+        
         if day in day_options:
-                correct_name =1;
-                break;
+        
+            correct_name =1;
+            
+            break;
+        
         if correct_name == 0:
-           print("Hey, I didn't write a search engine so you are going to need to be more specific.");
+        
+            print("Hey, I didn't write a search engine so you are going to need to be more specific.");
         
     print('-'*40)
+    
     return city, month, day
 
 
@@ -141,8 +173,9 @@ def time_stats(df):
     MONTH = list(MONTH_DATA.keys());       
     month_ticker = 0;
     most_month = MONTH_DATAinv.get(start_month[0]);
+    months_in_year = range(12);
 
-    for i in range(12):
+    for i in months_in_year:
         count = 0;
         
         for current_month in start_month: 
@@ -159,9 +192,10 @@ def time_stats(df):
     # TO DO: display the most common day of week
     DAY = list(DAY_DATA.keys());
     day_ticker = 0;
-    most_day = datetime.datetime(start_year[0],start_month[0],start_day[0]).strftime('%A')
-    
-    for i in range(7):
+    most_day = datetime.datetime(start_year[0],start_month[0],start_day[0]).strftime('%A');
+    days_in_week = range(7);
+
+    for i in days_in_week:
         count = 0;
         index = 0;
         
@@ -184,8 +218,9 @@ def time_stats(df):
     HOUR = range(len(start_hour)); 
     hour_ticker = 0;
     most_hour = start_hour[0]
+    hours_in_day = range(24)
     
-    for i in range(24):
+    for i in hours_in_day:
         count = 0;     
         
         for current_hour in start_hour:                                 
