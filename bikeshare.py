@@ -231,7 +231,7 @@ def time_stats(df):
             hour_ticker = count;
             most_hour = HOUR[i];
             
-    print('The most common hour is: ' + str(most_hour) + ':00 Military Time')
+    print('The most common hour is: {}:00 Military Time'.format(most_hour))
 
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
@@ -278,16 +278,18 @@ def trip_duration_stats(df):
     """Displays statistics on the total and average trip duration."""
 
     print('\nCalculating Trip Duration...\n')
-    start_time = time.time()
-    trip_dur = df['Trip Duration']
+    start_time = time.time();
+    trip_dur = df['Trip Duration'];
     total_trip=0;
+    total_bike_minutes = str(trip_dur.sum()/60);
+    average_bike_minutes = str(trip_dur.mean()/60);
+
     # TO DO: display total travel time
-    print('The total number of minutes spent biking in this city is: '+str((trip_dur.sum()/60)))
-        
+    print('The total number of minutes spent biking in this city is: '+ total_bike_minutes)        
 
 
     # TO DO: display mean travel time
-    print('The average number of minutes spent biking in this city per trip is: '+str(trip_dur.mean()/60))
+    print('The average number of minutes spent biking in this city per trip is: ' + average_bike_minutes)
 
 
     print("\nThis took %s seconds." % (time.time() - start_time))
@@ -298,7 +300,7 @@ def user_stats(df):
     """Displays statistics on bikeshare users."""
 
     print('\nCalculating User Stats...\n')
-    start_time = time.time()
+    start_time = time.time();
 
     # TO DO: Display counts of user types
     print('The number of ' + str(df['User Type'].value_counts().index[0]) + 's is ' + str(df['User Type'].value_counts()[0]))
@@ -315,9 +317,14 @@ def user_stats(df):
             
     # TO DO: Display earliest, most recent, and most common year of birth
     if 'Birth Year' in df.columns:
-        print('The earliest birth year is: '+ str(int(df['Birth Year'].min())))
-        print('The most recent birth year is: ' + str(int(df['Birth Year'].max())))
-        print('The most common birth year is: ' + str(int(df['Birth Year'].value_counts().index[0])))
+        
+        earliest_birth = str(int(df['Birth Year'].min()));
+        recent_birth = str(int(df['Birth Year'].max()));
+        common_birth = str(int(df['Birth Year'].value_counts().index[0]));
+
+        print('The earliest birth year is: ' + earliest_birth)
+        print('The most recent birth year is: ' + recent_birth)
+        print('The most common birth year is: ' + common_birth)
 
             
     print("\nThis took %s seconds." % (time.time() - start_time))
