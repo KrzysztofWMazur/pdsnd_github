@@ -305,6 +305,7 @@ def display_raw_data(df):
             raw = input("\nYour input is invalid. Please enter only 'yes' or 'no'\n").lower()
 
 def main():
+    """ The main function is used to run the functions above in the correct order and restart the process if the user so chooses."""
     while True:
         city, month, day = get_filters()
         df = load_data(city, month, day)
